@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .nodeSmall {
+      width: 50px;
+      height: 50px;
+      background: url(images/bgs.png) no-repeat -159px -51px;
+      position: fixed;
+      right: 10px;
+      top: 40%;
+    }
+    
+    .erweima {
+      position: absolute;
+      top: 0;
+      left: -150px;
+    }
+    
+    .nodeSmall a {
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .hide {
+      display: none;
+    }
+    
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<!--父盒子-->
+<div class="nodeSmall" id="node_small">
+  <a href="#"></a>
+  <!--二维码的盒子-->
+  <div class="chide erweima fr hide clearFix" id="er">
+    <img src="images/456.png" alt=""/>
+  </div>
+</div>
+
+<script>
+  //1 获取元素
+  var node_small = document.getElementById("node_small");
+  var er = document.getElementById("er");
+  
+  //2 设置移入移出事件操作
+  //当我们设置操作时，需要考虑，有可能二维码盒子的类名会被修改为其他的类型而不是现在的这两个
+  //如果将操作中的类名书写为固定值，可能会导致出错
+  //我们需要从二维码盒子当前类名的基础上进行修改
+  node_small.onmouseover = function () {
+    //获取到标签当前的类名
+    var oldClass = er.className;
+    //先将获取到的类名按照" "分割，再去查看内部的每个类名部分
+    var classArr = oldClass.split(" ");
+    //从classArr中找到需要的部分，修改为新的类名
+    var index = classArr.indexOf("hide");
+    //设置为新的类名值
+    classArr[index] = "show";
+    //将设置完的类名合并后，设置给className属性
+    er.className = classArr.join(" ");
+  };
+  
+  node_small.onmouseout = function () {
+    changeClass(er, "show", "hide");
+  };
+  
+  function changeClass(element, searchValue, replaceValue) {
+    //获取到标签当前的类名
+    var oldClass = element.className;
+    //先将获取到的类名按照" "分割，再去查看内部的每个类名部分
+    var classArr = oldClass.split(" ");
+    //从classArr中找到需要的部分，修改为新的类名
+    var index = classArr.indexOf(searchValue);
+    //设置为新的类名值
+    classArr[index] = replaceValue;
+    //将设置完的类名合并后，设置给className属性
+    element.className = classArr.join(" ");
+  }
+
+
+</script>
+</body>
+</html>

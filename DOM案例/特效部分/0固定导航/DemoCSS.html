@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+    
+    img {
+      vertical-align: top;
+    }
+    
+    .main {
+      margin: 0 auto;
+      width: 1000px;
+      margin-top: 10px;
+    }
+    
+    .fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="top" id="topPart">
+  <img id="pic" src="images/top.png" alt=""/>
+</div>
+<div class="nav" id="navBar">
+  <img src="images/nav.png" alt=""/>
+</div>
+<div class="main" id="mainPart">
+  <img src="images/main.png" alt=""/>
+</div>
+<script>
+  //1 获取元素
+  var topPart = document.getElementById("topPart");//顶部
+  var navBar = document.getElementById("navBar");//导航
+  var mainPart = document.getElementById("mainPart");//主体
+  
+  //2 当页面滚动时触发效果
+  window.onscroll = function () {
+    //3 比較页面卷曲高度与topPart的高度的关系
+    if (myScroll().scrollTop > topPart.offsetHeight) {
+      //4 设置导航部分定位
+      navBar.className = "nav fixed";
+      //定位后脱标，导致后面的内容向上移动，出现问题，可以通过设置marginTop解决
+      mainPart.style.marginTop = 10 + navBar.offsetHeight + "px";
+    } else {
+      navBar.className = "nav";
+      mainPart.style.marginTop = 10 + "px";
+    }
+  };
+  
+  
+  function myScroll() {
+    return {
+      scrollTop: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop,
+      scrollLeft: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft
+    };
+  }
+</script>
+</body>
+</html>

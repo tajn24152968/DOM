@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<img id="pic" src="images/01big.jpg" alt="">
+<button id="btn">切换图片</button>
+<script>
+  //1 获取元素
+  var pic = document.getElementById("pic");
+  var btn = document.getElementById("btn");
+  
+  //  //通过一个变量计数
+  //  var count = 1;//表示当前图片的编号
+  //
+  //  btn.onclick = function () {
+  //    count++;
+  //    //当count变化后，检测值是否超出最大值
+  //    if (count > 5) {
+  //      count = 1;
+  //    }
+  //    pic.src = "images/0" + count + "big.jpg";
+  //  };
+  
+  //更好的方式：
+  //1 可以通过一个数组来保存每个图片的地址
+  var arr = ["01big.jpg", "02big.jpg", "03big.jpg", "04big.jpg", "05big.jpg"];
+  
+  //2 设置一个变量记录当前使用的图片在arr中的索引值
+  var count = 0;
+  
+  //3 添加点击事件
+  btn.onclick = function () {
+    count++;
+    if (count > arr.length - 1) {
+      count = 0;
+    }
+    pic.src = "images/" + arr[count];
+  };
+
+</script>
+</body>
+</html>

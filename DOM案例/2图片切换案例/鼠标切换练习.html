@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<img id="pic" src="images/01big.jpg" alt="">
+<button id="btn">切换图片</button>
+<script>
+    //1 获取元素
+    var pic = document.getElementById("pic");
+    var btn = document.getElementById("btn");
+    var count=1;
+    btn.onclick=function(){
+        count++;
+        pic.src="images/0"+count+"big.jpg";
+        if(count==6){
+            count=0;
+        }
+    }
+</script>
+</body>
+</html>

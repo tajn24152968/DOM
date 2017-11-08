@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>今天天气不错</title>
+  <style>
+    .colorRed{
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+
+<script>
+  //效果：点击某个按钮，设置变色，同时保证每次只有一个按钮具有颜色
+  //1 获取元素
+  var btns = document.getElementsByTagName("button");
+  //2 遍历
+  for (var i = 0; i < btns.length; i++) {
+    
+    btns[i].onclick = function () {
+      //排他操作(排他思想)：排除所有人，最后操作自己
+      //在设置当前按钮颜色前，先将所有的按钮类名清除
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].className = "";
+      }
+      //给自己设置背景色
+      this.className = "colorRed";
+    };
+    
+  }
+  
+  
+  
+  
+  
+  
+</script>
+
+</body>
+</html>

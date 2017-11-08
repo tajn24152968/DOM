@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    select {
+      width: 150px;
+      background-color: #0099cc;
+    }
+  </style>
+</head>
+<body>
+<!--左边的下拉菜单   multiple：可以让下拉菜单多选 -->
+<select id="leftSel" size="10" multiple="multiple">
+  <option>苹果</option>
+  <option>香蕉</option>
+  <option>西瓜</option>
+  <option>牛油果</option>
+  <option>西红柿</option>
+</select>
+
+<!--四个选择按钮位置-->
+<input type="button" value=">>" id="allRight">
+<input type="button" value="<<" id="allLeft">
+<input type="button" value=">" id="right">
+<input type="button" value="<" id="left">
+
+<!--右边的下拉菜单-->
+<select id="rightSel" size="10" multiple="multiple">
+</select>
+
+<script>
+  //1 获取元素
+  var leftSel = document.getElementById("leftSel");//左侧下拉框
+  var leftOpts = leftSel.children;//左侧的所有选项
+  var rightSel = document.getElementById("rightSel");
+  var rightOpts = rightSel.children;//右侧的所有选项
+  var leftBtn = document.getElementById("left");
+  var rightBtn = document.getElementById("right");
+  
+  //2 点击右移按钮，将左侧选中的选项移动到右侧
+  //下拉菜单项的选中属性  selected
+  rightBtn.onclick = function () {
+    //3 遍历所有选项
+    //出现的问题：由于是动态数组结构，当元素移动后导致length降低，同时，后面的每个元素索引值也会改变,导致取值不连续
+    //通过调试的方式我们发现，每次有元素移动后，需要将i++进行抵消，如果没有移动，就不用操作
+    for (var i = 0; i < leftOpts.length; i++) {
+      if (leftOpts[i].selected) {
+        //4 移动到右侧下拉菜单中
+        rightSel.appendChild(leftOpts[i]);
+        i--;
+      }
+    }
+    
+    //如果不需要考虑移动后的顺序，可以采用此种方式
+    //for (var i = leftOpts.length - 1; i >= 0; i--) {
+    //  if (leftOpts[i].selected) {
+    ////      //4 移动到右侧下拉菜单中
+    //    rightSel.appendChild(leftOpts[i]);
+    //  }
+    //}
+  };
+  
+  //左移按钮
+  leftBtn.onclick = function () {
+    for (var i = 0; i < rightOpts.length; i++) {
+      if (rightOpts[i].selected) {
+        leftSel.appendChild(rightOpts[i]);
+        i--;
+      }
+    }
+  };
+  
+  
+  allRight.onclick = function () {
+    for (var i = 0; i < leftOpts.length;) {
+      rightSel.appendChild(leftOpts[i]);
+    }
+  };
+  
+  allLeft.onclick = function () {
+    for (var i = 0; i < rightOpts.length; ) {
+      leftSel.appendChild(rightOpts[i]);
+    }
+  }
+
+
+</script>
+
+</body>
+</html>

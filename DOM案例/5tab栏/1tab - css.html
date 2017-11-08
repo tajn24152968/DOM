@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    ul {
+      list-style-type: none;
+    }
+    
+    .box {
+      width: 400px;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin: 100px auto;
+      /*overflow: hidden;*/
+    }
+    
+    .hd {
+      height: 45px;
+    }
+    
+    .hd span {
+      display: inline-block;
+      width: 90px;
+      background-color: pink;
+      line-height: 45px;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .hd span.current {
+      background-color: purple;
+    }
+    
+    .bd li {
+      height: 255px;
+      background-color: purple;
+      display: none;
+      padding: 10px;
+      color: white;
+    }
+    
+    .bd li.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div class="hd">
+    <!--进行操作的按钮-->
+    <span class="current">体育</span>
+    <span>娱乐</span>
+    <span>新闻</span>
+    <span>综合</span>
+  </div>
+  <div class="bd">
+    <ul>
+      <!--操作按钮后需要对应显示的内容区域-->
+      <li class="show">我是体育模块</li>
+      <li>我是娱乐模块</li>
+      <li>我是新闻模块</li>
+      <li>我是综合模块</li>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+  //1 获取元素
+  var sps = document.getElementsByTagName("span");
+  var lis = document.getElementsByTagName("li");
+  var count = 0;//设置当前变色的span的索引值
+  //2 遍历sps，设置点击事件
+  for (var i = 0; i < sps.length; i++) {
+    //设置每个span的索引值属性
+    sps[i].index = i;
+    //设置点击事件
+    sps[i].onclick = function () {
+      //3 清除上次显示的span和li的类名
+      sps[count].className = "";
+      lis[count].className = "";
+      
+      //4 设置当前点击的span以及对应的li变色或显示
+      this.className = "current";
+      lis[this.index].className = "show";
+      
+      //5 更新count值
+      count = this.index;
+    };
+  }
+  
+  
+  
+</script>
+
+
+</body>
+</html>

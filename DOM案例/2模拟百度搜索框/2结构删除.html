@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    fieldset, img, input, button {
+      border: none;
+      padding: 0;
+      margin: 0;
+      outline-style: none;
+    }
+    
+    ul, ol {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+    }
+    
+    #box {
+      width: 405px;
+      margin: 200px auto;
+      position: relative;
+    }
+    
+    #txtSearch {
+      float: left;
+      width: 300px;
+      height: 32px;
+      padding-left: 4px;
+      border: 1px solid #b6b6b6;
+      border-right: 0;
+    }
+    
+    #btnSearch {
+      float: left;
+      width: 100px;
+      height: 34px;
+      font: 400 14px/34px "microsoft yahei";
+      color: white;
+      background: #3385ff;
+      cursor: pointer;
+    }
+    
+    #btnSearch:hover {
+      background: #317ef3;
+    }
+    
+    #pop {
+      width: 303px;
+      border: 1px solid #ccc;
+      padding: 0px;
+      position: absolute;
+      top: 34px;
+    }
+    
+    #pop ul li {
+      padding-left: 5px;
+    }
+    
+    #pop ul li:hover {
+      background-color: #CCC;
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+  <input type="text" id="txtSearch">
+  <input type="button" value="百度一下" id="btnSearch">
+
+</div>
+
+<script>
+  //模拟词库
+  var datas = ["a", "abc", "abbbb", "abxxxx", "xyz", "abcdef", "abzzzz"];
+  
+  //步骤分析：
+  //1 当键盘按键抬起时触发效果(keyup)
+  //2 先根据当前输入内容，获取到可以显示的词
+  //2.1 能满足条件的词必须以当前输入的内容为开头（  词库词.indexOf(输入内容)  ）
+  //3 创建结构即可
+  //3.1 提前设置好的样式对结构的创建也有要求 ( div，id设置为pop，内部结构为ul和li )
+  //4 细节处理
+  
+  
+  //实现：
+  //1 获取元素
+  var box = document.getElementById("box");
+  var txt = document.getElementById("txtSearch");
+  
+  //2 给txt设置keyup事件
+  txt.onkeyup = function () {
+    //3 根据当前输入内容，到词库中匹配到满足条件的词
+    var resultArr = [];//用于保存取出的词
+    for (var i = 0; i < datas.length; i++) {
+      if (datas[i].indexOf(this.value) == 0) {
+        //将词取出
+        resultArr.push(datas[i]);
+      }
+    }
+    
+    
+    //--------------
+    //对可能已经存在的pop结构进行删除
+    //如果页面中已经存在了旧的列表，这个标签一定具有id，叫pop
+    var pop = document.getElementById("pop");
+    //检测pop的值，如果为null，不需要删除，如果不是null，删除即可
+    if (pop) {
+      box.removeChild(pop);
+    }
+    
+    
+    //---------------
+    //4 根据取出的词创建结构(需要考虑样式问题)
+    var div = document.createElement("div");
+    div.id = "pop";
+    box.appendChild(div);
+    
+    var list = document.createElement("ul");
+    div.appendChild(list);
+    
+    //遍历取出的词，进行li的创建
+    var li;
+    for (var i = 0; i < resultArr.length; i++) {
+      li = document.createElement("li");
+      setText(li, resultArr[i]);
+      list.appendChild(li);
+    }
+    
+    
+  };
+  
+  function setText(element, xinText) {
+    if (typeof element.innerText == "string") {
+      //说明支持innerText属性
+      element.innerText = xinText;
+    } else {
+      //说明支持textContent
+      element.textContent = xinText;
+    }
+  }
+</script>
+</body>
+</html>

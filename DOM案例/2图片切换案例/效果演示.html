@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<img id="pic" src="images/01big.jpg" alt="">
+<button id="btn">切换图片</button>
+<script>
+  //1 获取元素
+  var pic = document.getElementById("pic");
+  var btn = document.getElementById("btn");
+  //  var count = 0;//控制多种状态的值
+  
+  //当我们要设置多个图片切换效果时，无法使用flag的方式，先观察每次要设置的效果
+  //"images/01big.jpg"
+  //"images/02big.jpg"
+  //"images/03big.jpg"
+  //"images/04big.jpg"
+  //"images/05big.jpg"
+  
+  //要设置的图片地址可能有规律，也可能没有规律，所以不需要检索规律
+  
+  
+  //基本的实现方式：
+  //  //2 给btn添加点击事件
+  //  btn.onclick = function () {
+  //    //先让计数增加
+  //    count++;
+  //
+  //    //设置之前添加一个检测，如果值超过了最大值。让其还原为第一个状态即可
+  //    if(count == 6){
+  //      count = 1;
+  //    }
+  //
+  //    //根据count的值，判断当前需要设置的代码状态
+  //    if(count == 1){
+  //      pic.src = "images/02big.jpg";
+  //    }else if(count == 2){
+  //      pic.src = "images/03big.jpg";
+  //    }else if(count == 3){
+  //      pic.src = "images/04big.jpg";
+  //    }else if(count == 4){
+  //      pic.src = "images/05big.jpg";
+  //    }else if(count == 5){
+  //      pic.src = "images/01big.jpg";
+  //    }
+  //  };
+  
+  
+  //借用数组的实现方式：
+  var count = 0;//默认值在数组中的索引值
+  //在进行操作之前，先将可能出现的图片地址保存在一个数组中
+  var arr = ["images/01big.jpg", "images/02big.jpg", "images/03big.jpg", "images/04big.jpg", "images/05big.jpg"]
+  //给btn添加点击事件
+  btn.onclick = function () {
+    //先让计数增加
+    count++;
+    //检测：如果当前取得count值为arr.length（已经显示了最后一张，又对按钮进行了点击）
+//    if (count == arr.length) {
+//      count = 0;//还原为第一个数据
+//    }
+    //上面的if表示，如果条件值为真，才执行内部的count的赋值
+    //借助短路操作,可以模拟单if操作
+    (count == arr.length) && (count = 0);//简化操作
+    //也可以使用 %=的方式：   count %= arr.length;//如果自身值小于length，取值为自身，相等时取值为0
+    
+    //根据计数，找到数组中对应的一个数据进行设置即可
+    pic.src = arr[count];
+  };
+
+</script>
+</body>
+</html>

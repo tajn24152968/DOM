@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+    
+    ul {
+      list-style: none
+    }
+    
+    .box {
+      width: 600px;
+      margin: 100px auto;
+      border: 1px solid #000;
+      padding: 20px;
+    }
+    
+    textarea {
+      width: 450px;
+      height: 160px;
+      outline: none;
+      resize: none;
+    }
+    
+    ul {
+      width: 450px;
+      padding-left: 80px;
+    }
+    
+    ul li {
+      /*line-height: 25px;*/
+      border-bottom: 1px dashed #cccccc;
+      word-break: break-all;
+    }
+    
+    input {
+      float: right;
+    }
+  </style>
+
+</head>
+<body>
+<div class="box" id="weibo">
+  <span>微博发布</span>
+  <textarea name="" id="txt" cols="20" rows="10"></textarea>
+  <button id="btn">发布</button>
+  <ul id="ul">
+  
+  </ul>
+</div>
+<script>
+  //效果分析：
+  //1 点击按钮
+  //2 根据textarea的内容创建一个li
+  //3 添加到ul中
+  //4 添加删除按钮
+  //5 设置删除效果
+  
+  
+  var txt = document.getElementById("txt");
+  var btn = document.getElementById("btn");
+  var ul = document.getElementById("ul");
+  
+  //btn添加点击事件
+  btn.onclick = function () {
+    if (txt.value == "") {
+      alert("没写内容");
+    } else {
+      //根据txt的内容创建li
+      var li = document.createElement("li");
+      li.innerText = txt.value;
+      
+      //创建删除按钮
+      li.innerHTML += "<input type='button' value='删除'>"
+      
+      //放入到ul中
+      ul.insertBefore(li,ul.children[0]);
+      
+      
+      //添加删除效果
+      li.children[0].onclick = function () {
+        ul.removeChild(this.parentNode);
+      }
+      
+      
+      //每次生成完毕后，可以将内容清除，方便下一次输入
+      txt.value = "";
+    }
+  };
+
+
+</script>
+</body>
+</html>

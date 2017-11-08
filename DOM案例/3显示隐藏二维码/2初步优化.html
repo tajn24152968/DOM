@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .nodeSmall {
+      width: 50px;
+      height: 50px;
+      background: url(images/bgs.png) no-repeat -159px -51px;
+      position: fixed;
+      right: 10px;
+      top: 40%;
+    }
+    
+    .erweima {
+      position: absolute;
+      top: 0;
+      left: -150px;
+    }
+    
+    .nodeSmall a {
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .hide {
+      display: none;
+    }
+    
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<!--父盒子-->
+<div class="nodeSmall" id="node_small">
+  <a href="#"></a>
+  <!--二维码的盒子-->
+  <div class="erweima fr hide clearFix" id="er">
+    <img src="images/456.png" alt=""/>
+  </div>
+</div>
+
+<script>
+  //1 获取元素
+  var node_small = document.getElementById("node_small");
+  var er = document.getElementById("er");
+  
+  //2 设置移入移出事件操作
+  //当我们设置操作时，需要考虑，有可能二维码盒子的类名会被修改为其他的类型而不是现在的这两个
+  //如果将操作中的类名书写为固定值，可能会导致出错
+  //我们需要从二维码盒子当前类名的基础上进行修改
+  node_small.onmouseover = function () {
+    //获取到标签当前的类名
+    var oldClass = er.className;
+    //将oldClass中的hide部分，修改为show。使用replace()
+    er.className = oldClass.replace("hide", "show");//"erweima fr show clearFix"
+  };
+  
+  node_small.onmouseout = function () {
+    er.className = "erweima hide";
+  };
+
+
+</script>
+</body>
+</html>

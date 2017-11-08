@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>今天天气不错</title>
+  <style>
+    .colorRed {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+<button class="colorRed">按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+
+<script>
+  //效果：点击某个按钮，设置变色，同时保证每次只有一个按钮具有颜色
+  //1 获取元素
+  var btns = document.getElementsByTagName("button");
+  var count = 0;//设置默认值为0，表示当前默认显示的元素索引值为0
+  //2 遍历
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].setAttribute("index",i);
+    
+    btns[i].onclick = function () {
+      //想要在当前按钮点击时，准确的找到上次点击的元素，需要知道上次点击元素的索引值是几
+      //可以提前设置一个变量，每次在操作后，将当前操作的按钮的索引值保存在这个变量中，给下次操作使用
+      
+      //1 清除上一个按钮的类名
+      btns[count].className = "";
+      
+      //2 给当前按钮设置类名
+      this.className = "colorRed";
+      
+      //3 将当前按钮的索引值保存在count中
+      //想要使用当前按钮的索引值，需要在使用前先进行索引值属性的设置
+      //3.1 通过给标签设置行内自定义属性的方式
+      //3.2 获取当前按钮的行内index属性值，进行操作
+      count = this.getAttribute("index");
+      
+    };
+    
+  }
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    fieldset, img, input, button {
+      border: none;
+      padding: 0;
+      margin: 0;
+      outline-style: none;
+    }
+    
+    ul, ol {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+    }
+    
+    #box {
+      width: 405px;
+      margin: 200px auto;
+      position: relative;
+    }
+    
+    #txtSearch {
+      float: left;
+      width: 300px;
+      height: 32px;
+      padding-left: 4px;
+      border: 1px solid #b6b6b6;
+      border-right: 0;
+    }
+    
+    #btnSearch {
+      float: left;
+      width: 100px;
+      height: 34px;
+      font: 400 14px/34px "microsoft yahei";
+      color: white;
+      background: #3385ff;
+      cursor: pointer;
+    }
+    
+    #btnSearch:hover {
+      background: #317ef3;
+    }
+    
+    #pop {
+      width: 303px;
+      border: 1px solid #ccc;
+      padding: 0px;
+      position: absolute;
+      top: 34px;
+    }
+    
+    #pop ul li {
+      padding-left: 5px;
+    }
+    
+    #pop ul li:hover {
+      background-color: #CCC;
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+  <input type="text" id="txtSearch">
+  <input type="button" value="百度一下" id="btnSearch">
+
+</div>
+
+<script>
+  //模拟词库
+  var datas = ["a", "abc", "abbbb", "abxxxx", "xyz", "abcdef", "abzzzz"];
+  
+  //1 触发效果的方式为在输入框内部，点击后，抬起来的时候，检测
+  //2 根据当前用户输入的内容，到datas中依次判断
+  //3 如果某个词库中的词汇是一输入的内容开头的，取出
+  //4 根据取出的内容，创建下面要显示的列表
+  
+  //实现：
+  //1 获取元素
+  var txt = document.getElementById("txtSearch");
+  var box = document.getElementById("box");
+  
+  
+  //2 添加keyup事件
+  txt.onkeyup = function () {
+    var resultArr = [];//用于保存满足条件的词汇
+    
+    //3 遍历datas中的每个词汇，用于依次检测
+    for (var i = 0; i < datas.length; i++) {
+      //4 如果datas[i]是以this.value开头的，取出即可
+      if (datas[i].indexOf(this.value) == 0) {
+        resultArr[resultArr.length] = datas[i];
+      }
+    }
+    
+    
+    //-------------------------------
+    //我们发现，每次创建完新结构后，原有(上一次的旧的结构还在),需要进行删除即可
+    //如果获取到旧的pop结构？
+    var pop = document.getElementById("pop");
+    //我们发现，如果页面中具有旧的列表，这个列表的id名一定是pop
+    //我们就根据id名获取叫pop的元素，查看获取的结果
+    //如果获取到结果，肯定是一个标签,如果获取不到结果，值为null
+    
+    if (pop) {
+      //只有获取到了真正的pop，才能进行这个if
+      box.removeChild(pop);
+    }
+    
+    //---------小细节-------
+    //如果用户输入的内容为""，这时在检测时会匹配到任意的一个字符串，这种情况没有意义，我们阻止后面的创建即可
+    if (this.value == "") {
+      return;
+    }
+    
+    //如果当前输入的内容没有匹配到结果，同样也不需要进行结果创建
+    if (resultArr.length == 0) {
+      return;
+    }
+    
+    //-------------------------------
+    
+    //5 根据resultArr中获取的词汇，进行结构创建
+    //结构的创建需要根据样式的需求设置
+    var div = document.createElement("div");
+    div.id = "pop";
+    box.appendChild(div);
+    var list = document.createElement("ul");
+    div.appendChild(list);
+    
+    //5.1 根据resultArr中元素的个数创建li
+    var li;
+    for (var i = 0; i < resultArr.length; i++) {
+      li = document.createElement("li");
+      li.innerText = resultArr[i];
+      list.appendChild(li);
+    }
+    
+  };
+
+</script>
+</body>
+</html>
